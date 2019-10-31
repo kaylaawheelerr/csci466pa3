@@ -7,13 +7,4 @@ import queue
 import threading
 from network import Interface, NetworkPacket, Host, Router
 
-## thread target for the host to keep forwarding data
 
-
-def run(self):
-    print(threading.currentThread().getName() + ': Starting')
-    while True:
-        self.forward()
-        if self.stop:
-            print(threading.currentThread().getName() + ': Ending')
-            return

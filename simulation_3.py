@@ -1,7 +1,7 @@
 '''
-Created on Oct 12, 2016
+Created on Oct 27, 2019
 
-@author: mwittie
+@author: Cole Sluggett, Kayla Wheeler
 '''
 import network_3 as network
 import link_3 as link
@@ -24,7 +24,6 @@ if __name__ == '__main__':
         "D": ["3","4"]
     }
 
-    #HOSTS
 
     client_1 = network.Host_3(1)
     client_2 = network.Host_3(2)
@@ -36,8 +35,6 @@ if __name__ == '__main__':
     object_L.append(client_3)
     object_L.append(client_4)
 
-    #ROUTERS
-
     router_a = network.Router_3(name='A', intf_count=2, max_queue_size=router_queue_size, routing_dictionary=table["A"])
     router_b = network.Router_3(name='B', intf_count=1, max_queue_size=router_queue_size, routing_dictionary=table["B"])
     router_c = network.Router_3(name='C', intf_count=1, max_queue_size=router_queue_size, routing_dictionary=table["C"])
@@ -48,13 +45,10 @@ if __name__ == '__main__':
     object_L.append(router_c)
     object_L.append(router_d)
 
-    
-    #create a Link Layer to keep track of links between network nodes
     link_layer = link.LinkLayer()
     object_L.append(link_layer)
     
-    #add all the links
-    #link parameters: from_node, from_intf_num, to_node, to_intf_num, mtu
+    #add the links together
     link_layer.add_link(link.Link(client_1, 0, router_a, 0, 50))
     link_layer.add_link(link.Link(client_2, 0, router_a, 1, 50))
     link_layer.add_link(link.Link(router_a, 0, router_b, 0, 50))

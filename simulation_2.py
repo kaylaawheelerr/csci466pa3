@@ -1,7 +1,7 @@
 '''
-Created on Oct 12, 2016
+Created on Oct 27, 2019
 
-@author: mwittie
+@author: Cole Sluggett, Kayla Wheeler
 '''
 import network_2 as network
 import link_2 as link
@@ -15,25 +15,19 @@ simulation_time = 1 #give the network sufficient time to transfer all packets be
 if __name__ == '__main__':
     object_L = [] #keeps track of objects, so we can kill their threads
     
-    #create network nodes
     client = network.Host_2(1)
     object_L.append(client)
     server = network.Host_2(2)
     object_L.append(server)
     router_a = network.Router_2(name='A', intf_count=1, max_queue_size=router_queue_size)
     object_L.append(router_a)
-    
-    #create a Link Layer to keep track of links between network nodes
+
     link_layer = link.LinkLayer()
     object_L.append(link_layer)
     
-    #add all the links
-    #link parameters: from_node, from_intf_num, to_node, to_intf_num, mtu
     link_layer.add_link(link.Link(client, 0, router_a, 0, 50))
     link_layer.add_link(link.Link(router_a, 0, server, 0, 30))  # MTU SET TO 30
     
-    
-    #start all the objects
     thread_L = []
     thread_L.append(threading.Thread(name=client.__str__(), target=client.run))
     thread_L.append(threading.Thread(name=server.__str__(), target=server.run))
