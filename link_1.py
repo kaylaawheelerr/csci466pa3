@@ -26,7 +26,7 @@ class Link:
         #configure the linking interface MTUs
         self.in_intf.mtu = mtu
         self.out_intf.mtu = mtu
-        
+
         
     ## called when printing the object
     def __str__(self):
@@ -39,11 +39,29 @@ class Link:
             return #return if no packet to transfer
         if len(pkt_S) > self.out_intf.mtu:
             print('%s: packet "%s" length greater then link mtu (%d)' % (self, pkt_S, self.out_intf.mtu))
+            temp_pkt_S = pkt_S[45:]
+            temp_num = pkt_S[-1]
+            server = pkt_S[:5]
+            pkt_S = pkt_S[:45]
+
+            try:
+                self.out_intf.put(pkt_S+" "+temp_num)
+                print('%s: transmitting packet "%s"' % (self, pkt_S+" ")+temp_num)
+                self.out_intf.put(server+temp_pkt_S)
+                print('%s: transmitting packet "%s"' % (self, server+temp_pkt_S))
+
+            except queue.Full:
+                print('%s: packet lost' % (self))
+                pass
+
             return #return without transmitting if packet too big
         #otherwise transmit the packet
         try:
             self.out_intf.put(pkt_S)
             print('%s: transmitting packet "%s"' % (self, pkt_S))
+            #self.out_intf.put(self.temp_pkt_S)
+            #print('%s: transmitting packet "%s"' % (self, temp_pkt_S))
+
         except queue.Full:
             print('%s: packet lost' % (self))
             pass
@@ -76,4 +94,5 @@ class LinkLayer:
             if self.stop:
                 print (threading.currentThread().getName() + ': Ending')
                 return
+    
     

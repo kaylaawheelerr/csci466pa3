@@ -3,8 +3,8 @@ Created on Oct 12, 2016
 
 @author: mwittie
 '''
-import network
-import link
+import network_2 as network
+import link_2 as link
 import threading
 from time import sleep
 
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     #add all the links
     #link parameters: from_node, from_intf_num, to_node, to_intf_num, mtu
     link_layer.add_link(link.Link(client, 0, router_a, 0, 50))
-    link_layer.add_link(link.Link(router_a, 0, server, 0, 50))
+    link_layer.add_link(link.Link(router_a, 0, server, 0, 30))  # MTU SET TO 30
     
     
     #start all the objects
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     
     #create some send events    
     for i in range(3):
-        client.udt_send(2, 'Sample data %d' % i)
+        client.udt_send(2, 'This data is long! One Two Three Four Five Six Seven. %d' % i)
     
     
     #give the network sufficient time to transfer all packets before quitting
