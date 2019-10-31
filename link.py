@@ -7,6 +7,7 @@ Created on Oct 12, 2016
 import queue
 import threading
 
+
 ## An abstraction of a link between router interfaces
 class Link:
     

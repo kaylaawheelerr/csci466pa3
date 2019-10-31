@@ -77,7 +77,7 @@ class Host:
     def __str__(self):
         return 'Host_%s' % (self.addr)
        
-    ## create a packet and enqueue for transmission
+    # create a packet and enqueue for transmission
     # @param dst_addr: destination address for the packet
     # @param data_S: data being transmitted to the network layer
     def udt_send(self, dst_addr, data_S):

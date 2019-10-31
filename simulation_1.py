@@ -1,10 +1,10 @@
 '''
-Created on Oct 12, 2016
+Created on Oct 27, 2019
 
-@author: mwittie
+@author: Cole Sluggett, Kayla Wheeler
 '''
-import network
-import link
+import network_1 as network
+import link_1 as link
 import threading
 from time import sleep
 
@@ -29,8 +29,8 @@ if __name__ == '__main__':
     
     #add all the links
     #link parameters: from_node, from_intf_num, to_node, to_intf_num, mtu
-    link_layer.add_link(link.Link(client, 0, router_a, 0, 50))
-    link_layer.add_link(link.Link(router_a, 0, server, 0, 50))
+    link_layer.add_link(link.Link_1(client, 0, router_a, 0, 50))
+    link_layer.add_link(link.Link_1(router_a, 0, server, 0, 50))
     
     
     #start all the objects
@@ -47,7 +47,8 @@ if __name__ == '__main__':
     
     #create some send events    
     for i in range(3):
-        client.udt_send(2, 'Sample data %d' % i)
+        client.udt_send(2, 'Sample data Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmode %d' % i)
+
     
     
     #give the network sufficient time to transfer all packets before quitting
